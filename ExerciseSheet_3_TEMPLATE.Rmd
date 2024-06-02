@@ -134,6 +134,15 @@ bigger_babyboom
 
 d)  Add a new column `year` to both datasets which holds the correct
     year for each.
+    
+```{r}
+data_2023$year <- 2023 
+data_2022$year <- 2022
+
+head(data_2023, 5)
+head(data_2022, 5)
+```
+    
 
 e)  Combine both datasets into one using `bind_rows()`.
 
