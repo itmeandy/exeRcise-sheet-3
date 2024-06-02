@@ -197,6 +197,11 @@ d)  Come up with a (research) question you want to answer with the data
     within one sentence. It should be a question that can be answered
     with the dataset and using R.
     
+  how many significant earthquakes (caused deaths, as read on the above given
+  website) did each country have? 
+  We believe this research question is interesting as you can easily calculate
+  how many significant earthquakes happened overall in those countries, 
+  aswell as which country had the most significant earthquakes overall. 
     
     
 e)  Use R to answer your chosen question.
