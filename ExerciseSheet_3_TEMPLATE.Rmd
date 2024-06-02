@@ -197,14 +197,27 @@ d)  Come up with a (research) question you want to answer with the data
     within one sentence. It should be a question that can be answered
     with the dataset and using R.
     
-  how many significant earthquakes (caused deaths, as read on the above given
-  website) did each country have? 
+  how many significant earthquakes (defined by caused deaths > 0 according to 
+  the data's website) did each country have? and give the top 10 
   We believe this research question is interesting as you can easily calculate
   how many significant earthquakes happened overall in those countries, 
-  aswell as which country had the most significant earthquakes overall. 
+  as well as which country had the most significant earthquakes overall. 
     
     
 e)  Use R to answer your chosen question.
+
+```{r}
+significant_earthquakes_per_country <- earthquake_deaths %>% 
+  group_by(Entity) %>% 
+  summarise(Total_Anzahl = sum(`Earthquake deaths (NGDC-NOAA)` > 0, na.rm = TRUE)) %>% 
+  arrange(desc(Total_Anzahl))
+
+head(significant_earthquakes_per_country, 11)
+```
+with this our research question is answered: the 10 countries with the most significant earthquakes (defined by more than 0 casualties) are: China, Japan, Indonesia, Iran, Turkey, Taiwan, Italy, Greece, Chile and lastly Peru
+our table shows the "World" as number one, with 402 recorded earthquakes that 
+are significant earthquakes per our definition (this number is lower than the countires summed up because one earthquake can cause casualties in multiple countires). Those resulsts seem right as all of those countires are close to where two or more continental plates meet, which is most likely the main reason as to why so many earthquakes that are significant enough to cause casualties happen there. 
+
 f)  Create a meaningful plot / figure with the dataset. Make sure to
     provide a figure caption (via the chunk options / Rmarkdown) and
     correctly label the figure.
