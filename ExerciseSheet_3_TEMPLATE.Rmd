@@ -74,12 +74,12 @@ b)  Push your code to this new repository by copying and executing the
     snippet on github listed under
     `…or push an existing repository from the command line`.
     
-    (task done and teammember added)
+  (task done and teammember added)
     
 c)  Regularly push your latest changes to GitHub again and especially do
     so when you are finished with this sheet.
     
-    (advice read)
+  (advice read)
 
 ## Exercise 3: Baby-Names in Munich (3.5 Points)
 
@@ -97,6 +97,18 @@ b)  Load the data for both years into R. Check the type of the count
     not numeric? Fix the problem in an appropriate manner, it is OK if
     some of the counts are inaccurate because of this. Explain your
     solution and the repercussions.
+    
+```{r}
+#install.packages("tidyverse")
+library(tidyverse)
+data_2023 <- read_csv(file.path("data", "vornamen-muenchen-2023.csv"))
+
+data_2022 <- read_csv(file.path("data", "open_data_portal_2022.csv"))
+
+typeof(data_2023$Anzahl)
+typeof(data_2022$Anzahl)
+```
+    
 
 c)  Calculate the total number of babies born in Munich in 2022
     and 2023. Which year had the bigger baby-boom?
