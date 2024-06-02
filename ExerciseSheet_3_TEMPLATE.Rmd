@@ -209,8 +209,8 @@ e)  Use R to answer your chosen question.
 ```{r}
 significant_earthquakes_per_country <- earthquake_deaths %>% 
   group_by(Entity) %>% 
-  summarise(Total_Anzahl = sum(`Earthquake deaths (NGDC-NOAA)` > 0, na.rm = TRUE)) %>% 
-  arrange(desc(Total_Anzahl))
+  summarise(Total_sig_earthquakes = sum(`Earthquake deaths (NGDC-NOAA)` > 0, na.rm = TRUE)) %>% 
+  arrange(desc(Total_sig_earthquakes))
 
 head(significant_earthquakes_per_country, 11)
 ```
@@ -221,6 +221,21 @@ are significant earthquakes per our definition (this number is lower than the co
 f)  Create a meaningful plot / figure with the dataset. Make sure to
     provide a figure caption (via the chunk options / Rmarkdown) and
     correctly label the figure.
+    
+```{r}
+ggplot(
+  significant_earthquakes_per_country, 
+  aes( 
+    x = )
+  ) + 
+  geom_histogram() + 
+  theme_light() + scale_x_continuous(labels = scales::comma) + 
+  labs (
+    x = "age", 
+    title = "count of programming languages between the ages of 0 and 100"
+  ) + xlim(0, 100)
+```
+    
 
 ## Final Note
 
