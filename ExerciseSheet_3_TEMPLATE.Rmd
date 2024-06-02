@@ -185,10 +185,20 @@ c)  Put the name / title of the dataset and a link to it below.
 -   Dataset Name: Earthquake deaths (NGDC-NOAA)
 -   Link: <https://github.com/owid/owid-datasets/tree/master/datasets/Earthquake%20deaths%20(NGDC-NOAA)>
 
+```{r}
+earthquake_deaths <- read_csv(file.path("data", "Earthquake deaths (NGDC-NOAA).csv"))
+#typeof(earthquake_deaths$Year)
+#typeof(earthquake_deaths$`Earthquake deaths (NGDC-NOAA)`)
+```
+
+
 d)  Come up with a (research) question you want to answer with the data
     and briefly explain why you believe this is an interesting question
     within one sentence. It should be a question that can be answered
     with the dataset and using R.
+    
+    
+    
 e)  Use R to answer your chosen question.
 f)  Create a meaningful plot / figure with the dataset. Make sure to
     provide a figure caption (via the chunk options / Rmarkdown) and
