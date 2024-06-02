@@ -107,11 +107,30 @@ data_2022 <- read_csv(file.path("data", "open_data_portal_2022.csv"))
 
 typeof(data_2023$Anzahl)
 typeof(data_2022$Anzahl)
+data_2023$Anzahl <- as.numeric(data_2023$Anzahl)
+data_2022$Anzahl <- as.numeric(data_2022$Anzahl)
 ```
+    the column "Anzahl" is being saved as a character type, because it includes 
+    some characters in some lines. For example: "4 oder weniger" in line 276 of
+    the 2022 dataset, because of those characters ("oder weniger") it can 
+    obviously not be read as a numeric and has to be saved as a character
+    
     
 
 c)  Calculate the total number of babies born in Munich in 2022
     and 2023. Which year had the bigger baby-boom?
+    
+```{r}
+babys_born_2023 <- sum(data_2023$Anzahl, na.rm = TRUE)
+babys_born_2023
+
+babys_born_2022 <- sum(data_2022$Anzahl, na.rm = TRUE)
+babys_born_2022
+
+bigger_babyboom <- ifelse(babys_born_2022 < babys_born_2023, "2023 had a bigger Babyboom", "2022 had a bigger Babyboom")
+bigger_babyboom
+```
+    
 
 d)  Add a new column `year` to both datasets which holds the correct
     year for each.
