@@ -154,6 +154,18 @@ binded_2022_2023 <- bind_rows(data_2022, data_2023)
 f)  Combine the counts for same names to determine the most popular
     names across both years. Print out the top 10 names in a nicely
     formatted table for both years. Include a table caption.
+    
+```{r}
+top_10_names <- binded_2022_2023 %>% 
+  group_by(Vorname) %>%
+  summarise(Total_Anzahl = sum(Anzahl, na.rm = TRUE)) %>%
+  arrange(desc(Total_Anzahl)) %>%
+  top_n(10, Total_Anzahl) %>% 
+  knitr::kable(caption = "10 most popular new born baby names of the combined years 2022 and 2023")
+#View(top_10_names)
+top_10_names
+```
+    
 
 ## Exercise 4: Open Analysis (4 points)
 
