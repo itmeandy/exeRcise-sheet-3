@@ -222,18 +222,45 @@ f)  Create a meaningful plot / figure with the dataset. Make sure to
     provide a figure caption (via the chunk options / Rmarkdown) and
     correctly label the figure.
     
-```{r}
-ggplot(
-  significant_earthquakes_per_country, 
-  aes( 
-    x = )
-  ) + 
-  geom_histogram() + 
-  theme_light() + scale_x_continuous(labels = scales::comma) + 
-  labs (
-    x = "age", 
-    title = "count of programming languages between the ages of 0 and 100"
-  ) + xlim(0, 100)
+```{r histo, fig.cap="10 countires with the most significant (casualties > 0) earthquakes"}
+library(ggplot2)
+library(dplyr)
+library(forcats)  # for using fct_lump and fct_infreq
+
+
+# Prepare the data
+significant_earthquakes_per_country <- earthquake_deaths %>%
+  filter(`Earthquake deaths (NGDC-NOAA)` > 0) %>%
+  group_by(Entity) %>%
+  summarise(Total_Significant_Earthquakes = n(), .groups = 'drop') %>%
+  arrange(desc(Total_Significant_Earthquakes))
+
+# Selecting top 10 countries, excluding 'World'
+top_countries <- significant_earthquakes_per_country %>%
+  filter(Entity != "World") %>%
+  slice_max(order_by = Total_Significant_Earthquakes, n = 10)
+
+# Creating a factor for earthquake ranges
+top_countries$Range <- cut(top_countries$Total_Significant_Earthquakes,
+                           breaks = c(0, 5, 10, 20, 50, Inf),
+                           labels = c("1-5", "6-10", "11-20", "21-50", "50+"),
+                           include.lowest = TRUE)
+
+# Create the plot with improved coloring based on range
+plot <- ggplot(top_countries, aes(x = reorder(Entity, Total_Significant_Earthquakes), y = Total_Significant_Earthquakes, fill = Range)) +
+  geom_bar(stat = "identity", color = "black") +
+  scale_fill_brewer(palette = "Spectral", name = "Number of Earthquakes") +  # Using a Brewer color palette for better visual distinction
+  labs(title = "Top 10 Countries by Number of Significant Earthquakes",
+       subtitle = "Countries are grouped by the range of significant earthquakes reported.",
+       x = "Country",
+       y = "Number of Significant Earthquakes") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.title = element_text(face = "bold"),
+        legend.position = "bottom")
+
+# Print the plot
+print(plot)
 ```
     
 
