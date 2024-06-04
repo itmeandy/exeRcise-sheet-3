@@ -107,8 +107,13 @@ data_2022 <- read_csv(file.path("data", "open_data_portal_2022.csv"))
 
 typeof(data_2023$Anzahl)
 typeof(data_2022$Anzahl)
-data_2023$Anzahl <- as.numeric(data_2023$Anzahl)
-data_2022$Anzahl <- as.numeric(data_2022$Anzahl)
+data_2023$Anzahl <- regmatches(data_2023$Anzahl, gregexpr("[[:digit:]]+", data_2023$Anzahl))
+data_2023$Anzahl <- as.numeric(unlist(data_2023$Anzahl))
+typeof(data_2023$Anzahl)
+
+data_2022$Anzahl <- regmatches(data_2022$Anzahl, gregexpr("[[:digit:]]+", data_2022$Anzahl))
+data_2022$Anzahl <- as.numeric(unlist(data_2022$Anzahl))
+typeof(data_2022$Anzahl)
 ```
     the column "Anzahl" is being saved as a character type, because it includes 
     some characters in some lines. For example: "4 oder weniger" in line 276 of
